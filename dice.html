@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <style>
+        body{
+            background-color: rgb(171, 200, 226);
+        }
+        /* CSS styles here */
+        h1{
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center vertically */
+            height: 50vh; /* Set height for centering vertically */
+            flex-direction: row; 
+            background-color: blanchedalmond;/* Stack elements vertically */
+        }
+        .dice {
+            display: inline-block; 
+            margin: 0 10px;
+        }
+        .scores {
+            text-align: center;
+            background-color:rgb(111, 111, 132)
+        }
+        .roll-container {
+            margin: auto;
+            width: 100px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+        }
+        button{
+          background-color: rgb(255, 208, 208);
+            padding: 17px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dice Game</h1>
+    <div class="container">
+        <div class="dice">
+            <h1>Player 1</h1>
+            <img id="dice1" src="./dice1.png" alt="Dice 1">
+        </div>
+        <div class="dice">
+            <h1>Player 2</h1>
+            <img id="dice2" src="./dice2.png" alt="Dice 2">
+        </div>
+    </div>
+    <div class="scores">
+        <p>Player 1 Score: <span id="player1Score">0</span></p>
+        <p>Player 2 Score: <span id="player2Score">0</span></p>
+    </div>
+    <div class="roll-container">
+        <button id="rollButton">Roll Dice</button>
+    </div>
+
+    <script>
+        // JavaScript code here
+        const winningScore = 20; // Change this to the desired winning score
+        let player1Score = 0;
+        let player2Score = 0;
+
+        function rollDice() {
+            const dice1 = Math.floor(Math.random() * 6) + 1;
+            const dice2 = Math.floor(Math.random() * 6) + 1;
+
+            document.getElementById('dice1').src = `dice${dice1}.png`;
+            document.getElementById('dice2').src = `dice${dice2}.png`;
+
+            const difference = Math.abs(dice1 - dice2);
+            if (dice1 > dice2) {
+                player1Score += difference;
+            } else if (dice2 > dice1) {
+                player2Score += difference;
+            }
+
+            document.getElementById('player1Score').textContent = player1Score;
+            document.getElementById('player2Score').textContent = player2Score;
+
+            if (player1Score >= winningScore) {
+                alert('Player 1 wins!');
+            } else if (player2Score >= winningScore) {
+                alert('Player 2 wins!');
+            }
+        }
+
+        document.getElementById('rollButton').addEventListener('click', rollDice);
+    </script>
+</body>
+</html>
